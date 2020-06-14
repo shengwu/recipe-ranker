@@ -6,3 +6,8 @@ run:
 .PHONY: python-check-types
 python-check-types:
 	mypy server/
+
+
+.PHONY: server
+server:
+	python server/app.py
