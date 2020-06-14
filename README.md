@@ -1,3 +1,21 @@
+# top-recipes
+
+
+# backend
+
+Dependencies:
+- python3 - pyenv or asdf
+- poetry
+
+Getting started:
+
+```
+poetry install
+```
+
+
+# frontend - create-react-app readme
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
