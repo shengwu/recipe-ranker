@@ -11,7 +11,11 @@ Getting started:
 
 ```
 poetry install
+python server/reset_db.py
+python server/app.py
 ```
+
+Then visit http://localhost:5000 to verify that the server is working correctly.
 
 
 # frontend - create-react-app readme
