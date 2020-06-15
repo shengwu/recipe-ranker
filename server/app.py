@@ -2,8 +2,8 @@ from collections import defaultdict
 from typing import List
 
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS # type: ignore
+from flask_sqlalchemy import SQLAlchemy # type: ignore
 from sqlalchemy import inspect
 from sqlalchemy.orm import raiseload
 
@@ -46,7 +46,7 @@ class Recipe(db.Model):
         return errors
 
 
-def object_as_dict(obj):
+def object_as_dict(obj: db.Model) -> dict:
     return {c.key: getattr(obj, c.key)
             for c in inspect(obj).mapper.column_attrs}
 

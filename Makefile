@@ -3,8 +3,9 @@
 run:
 	echo TODO
 
-.PHONY: python-check-types
-python-check-types:
+.PHONY: lint
+lint:
+	yarn tsc
 	mypy server/
 
 
