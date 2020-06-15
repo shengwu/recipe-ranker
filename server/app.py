@@ -2,12 +2,14 @@ from collections import defaultdict
 from typing import List
 
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import inspect
 from sqlalchemy.orm import raiseload
 
 
 app = Flask(__name__)
+CORS(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
@@ -16,7 +18,7 @@ db = SQLAlchemy(app)
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text)
+    name = db.Column(db.Text, unique=True)
     recipes = db.relationship('Recipe', backref='category', order_by='Recipe.votes.desc()', lazy='joined')
 
     def __repr__(self):
@@ -26,7 +28,7 @@ class Category(db.Model):
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'), nullable=False)
-    url = db.Column(db.Text)
+    url = db.Column(db.Text, unique=True)
     votes = db.Column(db.Integer, default=0)
 
     def __repr__(self):
