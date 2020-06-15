@@ -34,21 +34,26 @@ class Recipe(db.Model):
     def __repr__(self):
         return '<Recipe %r>' % self.url
 
-
-def recipe_param_errors(recipe_params: dict) -> List[str]:
-    errors = []
-    allowed_params = ('category_id', 'url')
-    required_params = ('category_id', 'url')
-    if len(recipe_params.keys() - allowed_params) > 0:
-        errors.append('params not allowed: ' + str(recipe_params.keys() - allowed_params))
-    if len(required_params - recipe_params.keys()) > 0:
-        errors.append('missing required params: ' + str(required_params - recipe_params.keys()))
-    return errors
+    @staticmethod
+    def param_errors(recipe_params: dict) -> List[str]:
+        errors = []
+        allowed_params = ('category_id', 'url')
+        required_params = ('category_id', 'url')
+        if len(recipe_params.keys() - allowed_params) > 0:
+            errors.append('params not allowed: ' + str(recipe_params.keys() - allowed_params))
+        if len(required_params - recipe_params.keys()) > 0:
+            errors.append('missing required params: ' + str(required_params - recipe_params.keys()))
+        return errors
 
 
 def object_as_dict(obj):
     return {c.key: getattr(obj, c.key)
             for c in inspect(obj).mapper.column_attrs}
+
+
+
+
+
 
 
 # ROUTES
@@ -64,7 +69,7 @@ def new_recipe():
     recipe_params = request.get_json()
     if recipe_params is None:
         return jsonify({'error': 'could not parse params as json'}), 400
-    errors = recipe_param_errors(recipe_params) 
+    errors = Recipe.param_errors(recipe_params) 
     if errors != [] :
         return jsonify({'errors': errors}), 400
     db.session.add(Recipe(**recipe_params))
