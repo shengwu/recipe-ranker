@@ -76,8 +76,8 @@ class Comment(db.Model):
     @staticmethod
     def param_errors(comment_params: dict) -> List[str]:
         errors = []
-        allowed_params = ('recipe_id', 'url')
-        required_params = ('recipe_id', 'url')
+        allowed_params = ('recipe_id', 'text')
+        required_params = ('recipe_id', 'text')
         if len(comment_params.keys() - allowed_params) > 0:
             errors.append('params not allowed: ' + str(comment_params.keys() - allowed_params))
         if len(required_params - comment_params.keys()) > 0:
@@ -98,7 +98,7 @@ def object_as_dict(obj: db.Model) -> dict:
 # ROUTES
 # ------
 
-@app.route('/comments', methods=['PUT'])
+@app.route('/comments', methods=['POST'])
 def new_comment():
     comment_params = request.get_json()
     if comment_params is None:
@@ -106,7 +106,7 @@ def new_comment():
     errors = Comment.param_errors(comment_params) 
     if errors != [] :
         return jsonify({'errors': errors}), 400
-    db.session.add(Comment(**{**comment_params, posted_at: datetime.datetime.now()}))
+    db.session.add(Comment(**{**comment_params, 'posted_at': datetime.datetime.now()}))
     db.session.commit()
     return 'ok'
 

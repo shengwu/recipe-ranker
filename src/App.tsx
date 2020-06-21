@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { ICategory } from './types';
 import Category from './Category';
 
+import './App.css';
+
 const App: React.FC = () => {
   const [categories, setCategories] = useState<Array<ICategory>>([]);
   const [error, setError] = useState<string>('');
@@ -27,7 +29,8 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
+    <h1>Recipe Ranker</h1>
     { categories === [] ? (
         error === '' ? (<p>Loading...</p>) : (<p>Error: {error}</p>)
       ) : categories.map(
