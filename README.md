@@ -1,6 +1,9 @@
 # top-recipes
 
 
+make commands:
+- `make lint`: typecheck frontend and backend
+
 # backend
 
 Dependencies:

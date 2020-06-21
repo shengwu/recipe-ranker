@@ -7,7 +7,7 @@ const Category: React.FC<{category: ICategory}> = ({ category }) => {
   return (<Card>
     <h2>{category.name}</h2>
     {category.recipes.map((recipe: IRecipe) => {
-      return <Recipe key={recipe.url} recipe={recipe} />;
+      return <Recipe key={recipe.url} recipeInitially={recipe} />;
     })}
   </Card>);
 };

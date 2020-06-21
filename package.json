@@ -12,6 +12,7 @@
     "@types/react-dom": "^16.9.0",
     "add": "^2.0.6",
     "antd": "^4.3.4",
+    "moment": "^2.27.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
