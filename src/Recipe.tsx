@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Comment from './Comment';
-import { Input, Button, Card } from 'antd';
+import CommentForm from './CommentForm';
+import { Button, Card } from 'antd';
 import { IComment, IRecipe } from './types';
 import { css } from '@emotion/core';
 
@@ -8,39 +9,22 @@ const recipeStyle = css({
   marginBottom: '10px',
 });
 
-type submitFn = (event: any) => void;
 type voidFn = () => void;
 
-const CommentForm: React.FC<{ recipe: IRecipe; refreshRecipe: voidFn }> = ({ recipe, refreshRecipe }) => {
-  const submitComment: submitFn = (event: any) => {
-    const comment = {
-      recipe_id: recipe.id,
-      text: event.target.value,
-    };
-    const postComment = (commentFields: object) => {
-      fetch('http://localhost:5000/comments', {
-        method: 'POST',
-        body: JSON.stringify(commentFields),
-        headers: { 'Content-Type': 'application/json' },
-      })
-        .then(() => refreshRecipe())
-        .catch((error) => console.log('ERROR: ' + error));
-    };
-    postComment(comment);
-  };
-  return <Input placeholder="Enter a comment.." onPressEnter={submitComment} />;
-};
+interface RecipeProps {
+  recipeInitially: IRecipe;
+}
 
-const Recipe: React.FC<{ recipeInitially: IRecipe }> = ({ recipeInitially }) => {
+const Recipe: React.FC<RecipeProps> = ({ recipeInitially }) => {
   const [recipe, setRecipe] = useState<IRecipe>(recipeInitially);
-  const refreshRecipe = () => {
+  const refreshRecipe = (): void => {
     fetch('http://localhost:5000/recipes/' + recipe.id.toString())
       .then((response) => response.json())
       .then((response) => setRecipe(response['recipe']))
       .catch((error) => console.log('ERROR: ' + error.error));
   };
   const upvoteFn: voidFn = () => {
-    const doUpvote = () => {
+    const doUpvote = (): void => {
       fetch('http://localhost:5000/recipe/upvote/' + recipe.id.toString(), { method: 'POST' })
         .then(() => refreshRecipe())
         .catch((error) => console.log('ERROR: ' + error.error));
