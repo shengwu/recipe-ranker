@@ -20,9 +20,9 @@ const App: React.FC = () => {
       // - the frontend could add a required attribute to e.g. ICategory. weird,
       //   i guess there are no errors here either.
       fetch('http://localhost:5000/')
-        .then(response => response.json())
-        .then(response => setCategories(response.categories))
-        .catch(error => setError(error.error));
+        .then((response) => response.json())
+        .then((response) => setCategories(response.categories))
+        .catch((error) => setError(error.error));
     };
 
     fetchCategories();
@@ -30,14 +30,18 @@ const App: React.FC = () => {
 
   return (
     <div className="container">
-    <h1>Recipe Ranker</h1>
-    { categories === [] ? (
-        error === '' ? (<p>Loading...</p>) : (<p>Error: {error}</p>)
-      ) : categories.map(
-        (category: ICategory) => <Category key={category.name} category={category} />
+      <h1>Recipe Ranker</h1>
+      {categories === [] ? (
+        error === '' ? (
+          <p>Loading...</p>
+        ) : (
+          <p>Error: {error}</p>
+        )
+      ) : (
+        categories.map((category: ICategory) => <Category key={category.name} category={category} />)
       )}
     </div>
   );
-}
+};
 
 export default App;
