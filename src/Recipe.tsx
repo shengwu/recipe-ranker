@@ -11,11 +11,9 @@ const recipeStyle = css({
 
 type voidFn = () => void;
 
-interface RecipeProps {
+const Recipe: React.FC<{
   recipeInitially: IRecipe;
-}
-
-const Recipe: React.FC<RecipeProps> = ({ recipeInitially }) => {
+}> = ({ recipeInitially }) => {
   const [recipe, setRecipe] = useState<IRecipe>(recipeInitially);
   const refreshRecipe = (): void => {
     fetch('http://localhost:5000/recipes/' + recipe.id.toString())

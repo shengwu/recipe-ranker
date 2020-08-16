@@ -4,12 +4,10 @@ import { IRecipe } from './types';
 
 type voidFn = () => void;
 
-interface CommentFormProps {
+const CommentForm: React.FC<{
   recipe: IRecipe;
   refreshRecipe: voidFn;
-}
-
-const CommentForm: React.FC<CommentFormProps> = ({ recipe, refreshRecipe }) => {
+}> = ({ recipe, refreshRecipe }) => {
   const [comment, setComment] = useState<string>('');
   const submitComment: voidFn = () => {
     if (comment.trim() === '') {

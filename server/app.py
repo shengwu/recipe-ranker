@@ -106,7 +106,8 @@ def new_comment():
     errors = Comment.param_errors(comment_params) 
     if errors != [] :
         return jsonify({'errors': errors}), 400
-    db.session.add(Comment(**{**comment_params, 'posted_at': datetime.datetime.now()}))
+    # have to save as UTC for sqlite3
+    db.session.add(Comment(**{**comment_params, 'posted_at': datetime.datetime.utcnow()}))
     db.session.commit()
     return 'ok'
 
