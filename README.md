@@ -25,6 +25,10 @@ Then visit http://localhost:5000 to verify that the server is working correctly.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+Editor is VS code with extensions:
+- eslint
+- prettier
+
 ## Available Scripts
 
 In the project directory, you can run:
